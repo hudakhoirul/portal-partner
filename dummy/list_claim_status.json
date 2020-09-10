@@ -1,0 +1,43 @@
+{
+  "error_code": "200",
+  "error_description": "OK",
+  "data": [
+    {
+      "claim_status_id": 3,
+      "claim_status_code": "SC001",
+      "status_name": "Draft",
+      "is_delete": "0"
+    },
+    {
+      "claim_status_id": 4,
+      "claim_status_code": "SC002",
+      "status_name": "Document Checking",
+      "is_delete": "0"
+    },
+    {
+      "claim_status_id": 5,
+      "claim_status_code": "SC003",
+      "status_name": "Claim Revision",
+      "is_delete": "0"
+    },
+    {
+      "claim_status_id": 7,
+      "claim_status_code": "SC004",
+      "status_name": "Waiting Claim Amount",
+      "is_delete": "0"
+    },
+    {
+      "claim_status_id": 8,
+      "claim_status_code": "SC005",
+      "status_name": "Claim Processed",
+      "is_delete": "0"
+    },
+    {
+      "claim_status_id": 9,
+      "claim_status_code": "SC006",
+      "status_name": "Claim Process on Core System",
+      "is_delete": "0"
+    }
+  ],
+  "total_data": 6
+}

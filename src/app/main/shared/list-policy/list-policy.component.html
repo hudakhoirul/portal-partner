@@ -1,0 +1,59 @@
+<dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [columns]="[
+    'insuredNo',
+    'insuredName',
+    'ktpNo',
+    'dateOfBirth',
+    'idMemberPartner',
+    'policyNo',
+    'insurancePeriodTo',
+    'currency',
+    'sumAssured']"
+    [showBorders]="true"
+    [allowColumnReordering]="true"
+    [rowAlternationEnabled]="true"
+    columnWidth="auto"
+    (onContentReady)="onDataReady($event)"
+    style="padding: 10px; background-color: white;">
+    <dxi-column dataField="action" cellTemplate="actionTemplate" caption="{{'listPolicy.Action' | translate}}" [width]="65"></dxi-column>
+    <dxi-column dataField="insuredNo" caption="{{'listPolicy.insuredNo' | translate}}"[width]="100"></dxi-column>
+    <dxi-column dataField="insuredName" caption="{{'listPolicy.insuredName' | translate}}"[width]="150"></dxi-column>
+    <dxi-column dataField="ktpNo" caption="{{'listPolicy.ktpNo' | translate}}"[width]="100"></dxi-column>
+    <dxi-column dataField="dateOfBirth" caption="{{'listPolicy.dateOfBirth' | translate}}" cellTemplate="dateTemplate" [width]="150"></dxi-column>
+    <dxi-column dataField="idMemberPartner" caption="{{'listPolicy.idMemberPartner' | translate}}"></dxi-column>
+    <dxi-column dataField="policyNo" caption="{{'listPolicy.policyNo' | translate}}"></dxi-column>
+    <dxi-column dataField="insurancePeriodFrom" caption="{{'listPolicy.insurancePeriodFrom' | translate}}" dataType="date" cellTemplate="dateTemplate" [width]="175"></dxi-column>
+    <dxi-column dataField="insurancePeriodTo" caption="{{'listPolicy.insurancePeriodTo' | translate}}" dataType="date" cellTemplate="dateTemplate" [width]="150"></dxi-column>
+    <dxi-column dataField="currency" caption="{{'listPolicy.currency' | translate}}"></dxi-column>
+    <dxi-column dataField="sumAssured" caption="{{'listPolicy.sumAssured' | translate}}" cellTemplate="currencyTemplate"></dxi-column>
+    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+    <div *dxTemplate="let data of 'actionTemplate'" style="text-align: center;">
+        <span class="btn-select" (click)="onSelected(data)">Select</span>
+    </div>
+
+    <div *dxTemplate="let d of 'currencyTemplate'">
+        <div>{{d.value | currency:' '}}</div>
+    </div>
+
+    <div *dxTemplate="let d of 'dateTemplate'">
+        <div>{{formatDate(d.value)}}</div>
+    </div>
+    
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <!-- <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[10, 25, 50, 100]"
+    ></dxo-pager> -->
+
+    <dxo-search-panel 
+        [visible]="true" 
+        [width]="240" 
+        placeholder="Search..."></dxo-search-panel>
+
+    <dxo-grouping
+        [autoExpandAll]="false"
+    ></dxo-grouping>
+</dx-data-grid>

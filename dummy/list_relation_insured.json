@@ -1,0 +1,31 @@
+{
+  "error_code": "200",
+  "error_description": "OK",
+  "data": [
+    {
+      "relation_insured_id": 1,
+      "relation_insured_code": "REL01",
+      "relation_insured_name": "him/her self",
+      "is_delete": 0
+    },
+    {
+      "relation_insured_id": 2,
+      "relation_insured_code": "REL02",
+      "relation_insured_name": "spouse",
+      "is_delete": 0
+    },
+    {
+      "relation_insured_id": 3,
+      "relation_insured_code": "REL03",
+      "relation_insured_name": "children",
+      "is_delete": 0
+    },
+    {
+      "relation_insured_id": 4,
+      "relation_insured_code": "REL04",
+      "relation_insured_name": "others",
+      "is_delete": 0
+    }
+  ],
+  "total_data": 4
+}

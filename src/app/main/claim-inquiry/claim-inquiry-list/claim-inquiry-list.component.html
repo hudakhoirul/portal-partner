@@ -1,0 +1,90 @@
+<px-loader [loading]="isPageLoadingVisible"></px-loader>
+<div id="registration-claim" class="p-16">
+    <dx-box
+        direction="col"
+        width="100%"
+        height="50"
+        class="rect">
+        <dxi-item
+            [ratio]="1"
+            class="title">
+            {{'claimInquiry.list.tittle' | translate}}
+        </dxi-item>
+    </dx-box>
+
+    <div class="widget-container mt-16">
+        <dx-form id="form"
+            #insuredForm
+            colCount="2"
+            [formData]="insured">
+            <!-- <dxi-item dataField="product">
+                <div *dxTemplate>
+                    <dx-select-box
+                        [items]="companyPolicy"
+                        valueExpr = "id"
+                        displayExpr= "name"
+                        placeholder="Select Product"
+                        (onValueChanged)="onProductChanged($event)"
+                        itemTemplate="item">
+                        <div *dxTemplate="let data of 'item'">
+                            {{data.policyNo}} - {{data.name}}
+                        </div>
+                        <dx-validator>
+                            <dxi-validation-rule type="required" message="Product is required"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-select-box>
+                </div>
+                <dxi-validation-rule type="required" message="Product is required"></dxi-validation-rule>
+
+            </dxi-item> -->
+
+            <dxi-item dataField="product" editorType="dxSelectBox" [editorOptions]="{ items: companyPolicy['data'], displayExpr: 'name', value: '', valueExpr: 'id', onValueChanged: onProductChanged}">
+                <dxo-label text="{{'claimInquiry.list.product' | translate}}"></dxo-label>
+                <dxi-validation-rule type="required" message="Product is required"></dxi-validation-rule>
+            </dxi-item>
+
+            <dxi-item dataField="idMemberPartner">
+                <dxo-label text="{{'claimInquiry.list.idMemberPartner' | translate}}"></dxo-label>
+            </dxi-item>
+            
+            <dxi-item dataField="claimRegisterNo" caption="test">
+                <dxo-label text="{{'claimInquiry.list.claimRegisterNo' | translate}}"></dxo-label>
+            </dxi-item>
+            
+            <dxi-item dataField="claimType" editorType="dxSelectBox" [editorOptions]="{ items: claimType, displayExpr: 'name', value: '', valueExpr: 'claimTypeCode' }">
+                <dxo-label text="{{'claimInquiry.list.claimType' | translate}}"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="insuredName">
+                <dxo-label text="{{'claimInquiry.list.insuredName' | translate}}"></dxo-label>
+            </dxi-item>
+            
+            <dxi-item dataField="status" editorType="dxSelectBox" [editorOptions]="{ items: statusClaim, displayExpr: 'statusName', value: '', valueExpr: 'claimStatusCode' }">
+            </dxi-item>
+
+            <dxi-item itemType="empty"></dxi-item>
+            <dxi-item itemType="EmptyItem" style="float: right">
+                <px-animated-button 
+                    label="{{'claimInquiry.list.buttonSearch' | translate}}"
+                    type="success"
+                    (buttonClick)="getListInsured()"
+                    [isLoading]="isButtonListLoading"
+                ></px-animated-button>
+                <dx-button
+                    style="margin-left: 10px"
+                    text="Reset"
+                    (onClick)="resetFilter()">
+                </dx-button>
+            </dxi-item>
+        </dx-form>
+    </div>
+
+    <div class="widget-container mt-16">
+        <list-claim
+            [dataSource]="claimPartner"
+            [column]="column"
+            (selected)="goToView($event)"
+            type="claim-inquiry"
+        ></list-claim>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div>
+    <!-- <dx-button
+        *ngIf="(!canSave || isFormEditable) && claimPartner['claimStatusCode'] === 'SC001'"
+        (onClick)="onSaveClick()"
+        text="Save"
+        type="success">
+    </dx-button> -->
+    <dx-button
+    *ngIf="canSave || claimPartner['claimStatusCode'] === 'SC004' || isFormEditable"
+        (onClick)="onSaveClick()"
+        text="{{'claimInformation.form.btnSave' | translate}}"
+        type="success">
+    </dx-button>
+    <dx-button
+        *ngIf="canSave || claimPartner['claimStatusCode'] === 'SC004' || isFormEditable"
+        (onClick)="onSubmitClick()"
+        style="margin-left: 10px"
+        text="{{'claimInformation.form.btnSubmit' | translate}}"
+        type="success">
+    </dx-button>
+    <dx-button
+        *ngIf="canSave"
+        (onClick)="onCancelClick()"
+        style="margin-left: 10px"
+        text="{{'claimInformation.form.btnCancel' | translate}}"
+        type="danger">
+    </dx-button>
+</div>

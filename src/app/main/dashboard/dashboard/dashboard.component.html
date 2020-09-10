@@ -1,0 +1,46 @@
+<div id="dashboard" class="p-16">
+    <dx-box
+        direction="col"
+        width="100%"
+        height="50"
+        class="rect">
+        <dxi-item
+            [ratio]="1"
+            class="title">
+            {{ 'WELCOME' | translate:param }}
+        </dxi-item>
+    </dx-box>
+
+    <div class="wrapper" *ngIf="isCardReady">
+        <div class="box" *ngIf="cardDraft">
+            <span class="card-title">{{ getStatus('SC001') }}</span>
+            <span class="card-value">{{getValue('SC001')}}</span>
+            <px-button label="{{ 'dashboard.viewmore' | translate }}" width="100%" (click)="goToList('SC001')"></px-button>
+        </div>
+        
+        <div class="box" *ngIf="cardChecking">
+            <span class="card-title">{{getStatus('SC002')}}</span>
+            <span class="card-value">{{getValue('SC002')}}</span>
+            <px-button label="{{ 'dashboard.viewmore' | translate }}" width="100%" (click)="goToList('SC002')"></px-button>
+        </div>
+        
+        <div class="box" *ngIf="cardWaiting">
+            <span class="card-title">{{getStatus('SC003')}}</span>
+            <span class="card-value">{{getValue('SC003')}}</span>
+            <px-button label="{{ 'dashboard.viewmore' | translate }}" width="100%" (click)="goToList('SC003')"></px-button>
+        </div>
+        
+        <div class="box" *ngIf="cardRevision">
+            <span class="card-title">{{getStatus('SC004')}}</span>
+            <span class="card-value">{{getValue('SC004')}}</span>
+            <px-button label="{{ 'dashboard.viewmore' | translate }}" width="100%" (click)="goToList('SC004')"></px-button>
+        </div>
+        
+        <div class="box" *ngIf="cardProcessed">
+            <span class="card-title">{{getStatus('SC005')}}</span>
+            <span class="card-value">{{getValue('SC005')}}</span>
+            <px-button label="{{ 'dashboard.viewmore' | translate }}" width="100%" (click)="goToList('SC005')"></px-button>
+        </div>
+    </div>
+
+</div>

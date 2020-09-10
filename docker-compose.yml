@@ -1,0 +1,7 @@
+version: '3.5'
+services:
+  portal-partner:
+    container_name: portal-partner
+    build: .
+    ports:
+      - '10101:10101'

@@ -1,0 +1,15 @@
+<dx-button
+        id="button"
+        [text]="label"
+        [height]="height"
+        [width]="width"
+        [type]="type"
+        [style]="style"
+        (onClick)="onButtonClick($event)">
+        <div *dxTemplate="let data of 'content'">
+            <dx-load-indicator class='button-indicator'
+                [visible]="isLoading" ndicatorSrc='images/Loading.gif'>
+            </dx-load-indicator>
+            <span class='dx-button-text'>{{label}}</span>
+        </div>
+    </dx-button>

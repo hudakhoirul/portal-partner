@@ -1,0 +1,10 @@
+{
+    "name": "TAM Logistic",
+    "short_name": "TAM Logistic",
+    "theme_color": "#FFFFFF",
+    "background_color": "#3F51B5",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": []
+}

@@ -1,0 +1,26 @@
+.btn-select {
+    border: none;
+    background-color: initial;
+    color: #5bb85c;
+    cursor: pointer;
+}
+
+.btn-upload /deep/ .dx-fileuploader-button .dx-button-text {
+    color: #606060;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-upload /deep/ .dx-fileuploader-button.dx-widget {
+    box-shadow: none !important;
+}
+
+.btn-upload /deep/ .dx-fileuploader-content {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+::ng-deep .dx-gallery-item-image {
+    height: unset !important;
+    width: 97% !important;
+}

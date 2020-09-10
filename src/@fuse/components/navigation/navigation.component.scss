@@ -1,0 +1,146 @@
+@import 'src/@fuse/scss/fuse';
+
+fuse-navigation {
+    display: flex;
+    flex: 1 0 auto;
+
+    > .nav {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .folded:not(.unfolded) & {
+
+        .dx-link-title {
+            opacity: 0;
+            transition: opacity 400ms ease;
+            margin-left: 5px !important;
+        }
+
+        // .dx-treeview-node-container:first-child {
+        //     margin-left: 15px !important;
+        // }
+    
+        .dx-treeview-node-container {
+            margin-left: 0px !important;
+            transition: margin-left 200ms ease;
+        }
+
+        .dx-link-active {
+            padding: 10px 10px 10px 16px;
+            border-left: solid 4px #499945;
+            transition: border-width 200ms ease;
+        }
+    }
+
+    .dx-link-title {
+        vertical-align: text-bottom !important;
+        color: #f5f5f5;
+        margin-left: 5px !important;
+    }
+
+    .dx-link-icon {
+        padding-top: 3px;
+        margin-right: 5px;
+        font-size: 18px;
+        color: #f5f5f5;
+    }
+
+    .dx-item-wrapper {
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dx-link-title:hover {
+        color: #f5f5f5;
+        vertical-align: text-bottom !important;
+    }
+
+    .dx-treeview-item-without-checkbox.dx-state-focused > .dx-treeview-item {
+        background-color: #a0b50d !important;
+    }
+
+    .dx-link-active {
+        background-color: #989898 !important;
+        padding: 10px;
+        border-right: solid 5px #499945;
+        transition: border-width 200ms ease;
+        
+        .dx-link-title {
+            color: #f5f5f5;
+            margin-left: 5px !important;
+        }
+    }
+
+    .dx-link-inactive {
+        background-color: #989898 !important;
+        
+        .dx-link-title {
+            color: #f5f5f5;
+            margin-left: 5px !important;
+        }
+    }
+
+    .dx-treeview-toggle-item-visibility, .dx-treeview-toggle-item-visibility-opened {
+        font-size: 0px !important;
+    }
+
+    .dx-treeview-node-container-opened {
+        margin-left: 0px !important;
+    }
+
+    .dx-treeview-node-container:first-child {
+        margin-left: 0px !important;
+        transition: margin-left 200ms ease;
+    }
+
+    .dx-treeview-node-container {
+        margin-left: 10px !important;
+        transition: margin-left 200ms ease;
+    }
+
+    .dx-treeview-node {
+        padding-left: 0px;
+    }
+
+    .dx-treeview-item-without-checkbox.dx-state-focused > .dx-treeview-item {
+        background-color: #989898 !important;
+    }
+
+    .dx-treeview-item {
+        padding: 0px;
+    }
+
+    .dx-treeview-item-content {
+        padding: 10px 10px 10px 20px;
+    }
+
+    .dx-treeview-item:hover {
+        background-color: #989898 !important;
+    }
+
+    .dx-treeview-node-container {
+        width: 280px !important;
+    }
+
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+     }
+
+    .badge {
+        background-color: red;
+        color: white;
+        border-radius: 15px;
+        margin-right: 15px;
+        padding: 4px;
+        font-size: 10px;
+        width: 20px;
+        height: 20px;
+        justify-content: center;
+        display: flex;
+    }
+}

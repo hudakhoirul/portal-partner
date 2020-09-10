@@ -1,0 +1,14 @@
+{
+    "pageName": "test-baru",
+    "field": [{
+        "name": "id",
+        "type": "text",
+        "required": true,
+        "editable": true
+    },{
+        "name": "name",
+        "type": "text",
+        "required": true,
+        "editable": true
+    }]
+}

@@ -1,0 +1,61 @@
+{
+  "error_code": "200",
+  "error_description": "OK",
+  "data": [
+    {
+      "claim_type_id": 1,
+      "claim_type_code": "CLTY190001",
+      "name": "Death",
+      "alias": "DEATH",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    },
+    {
+      "claim_type_id": 2,
+      "claim_type_code": "CLTY190002",
+      "name": "Hospitalized",
+      "alias": "HCP",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    },
+    {
+      "claim_type_id": 3,
+      "claim_type_code": "CLTY190003",
+      "name": "Critical Illness",
+      "alias": "CI",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    },
+    {
+      "claim_type_id": 4,
+      "claim_type_code": "CLTY190004",
+      "name": "Personal Accident",
+      "alias": "PA",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    },
+    {
+      "claim_type_id": 5,
+      "claim_type_code": "CLTY190005",
+      "name": "Funeral Expenses",
+      "alias": "FE",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    },
+    {
+      "claim_type_id": 6,
+      "claim_type_code": "CLTY190006",
+      "name": "Total Permanent Disability",
+      "alias": "TPD",
+      "status_id": 5,
+      "status_description": "Active",
+      "is_delete": 0
+    }
+  ],
+  "total_data": 6
+}

@@ -1,0 +1,414 @@
+<px-loader [loading]="isPageLoadingVisible"></px-loader>
+<div id="registration-claim" class="p-16">
+    <dx-box
+        direction="col"
+        width="100%"
+        height="50"
+        class="rect">
+        <dxi-item
+            [ratio]="1"
+            class="title">
+            {{'claimInquiry.form.tittle' | translate}}
+        </dxi-item>
+    </dx-box>
+
+    <dx-tab-panel
+        #tabPanel
+        [dataSource]="companies"
+        [selectedIndex]="0"
+        [loop]="false"
+        [animationEnabled]="true"
+        [swipeEnabled]="false"
+        class="mt-16"
+    >
+        <div *dxTemplate="let company of 'title'">
+            <span *ngIf="company.ID===1">{{'claimInquiry.form.btnPage' | translate}}</span>
+            <span *ngIf="company.ID===2">{{'claimInquiry.form.btnPage2' | translate}}</span>
+            <span *ngIf="company.ID===3">{{'claimInquiry.form.btnPage3' | translate}}</span>
+        </div>
+        <div *dxTemplate="let company of 'item'">
+            <div class="tabpanel-item p-16" *ngIf="company.ID===1">
+                <div class="my-16" class="button-wrap" style="margin-bottom: 16px;">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                            (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                            (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                            (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+
+                <div class="widget-container">
+                    <dx-form id="form"
+                        #claimForm
+                        [formData]="claimPartner">
+                        <dxi-item itemType="group" colCount="2">
+                            <dxi-item dataField="claimRegNo" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.claimRegNo' | translate}}"></dxo-label>
+                            </dxi-item>
+                            <dxi-item dataField="claimStatusName" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.claimStatusName' | translate}}"></dxo-label>
+                            </dxi-item>
+                        </dxi-item>
+                        <dxi-item itemType="group" caption="{{'claimInformation.form.subTittle' | translate}}" colCount="2">
+                            <dxi-item dataField="participant" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.participant' | translate}}"></dxo-label>
+                            </dxi-item>
+                            <dxi-item dataField="idMemberPartner" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.idMemberPartner' | translate}}"></dxo-label>
+                            </dxi-item>
+
+                            <dxi-item dataField="participantNo" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.participantNo' | translate}}"></dxo-label>
+                            </dxi-item>
+                            <dxi-item dataField="policyNo" [editorOptions]="{ disabled: true }"></dxi-item>
+
+                            <dxi-item dataField="phoneNo1" [editorOptions]="{ disabled: true }">
+                                <dxo-label text="{{'claimInquiry.form.phoneNo1' | translate}}"></dxo-label>
+                            </dxi-item>
+                            <dxi-item dataField="product" [editorOptions]="{ disabled: true }"></dxi-item>
+
+                            <dxi-item dataField="emailAddress" [editorOptions]="{ disabled: true }"></dxi-item>
+                            <dxi-item>
+                                <dxo-label text="Insured Period"></dxo-label>
+                                <div *dxTemplate>
+                                    <dx-text-box [value]="formatDatePeriod(claimPartner.startDate, claimPartner.finishDate)" [disabled]="true"></dx-text-box>
+                                </div>
+                            </dxi-item>
+
+                            <dxi-item dataField="virtualAccount" [editorOptions]="{ disabled: true }"></dxi-item>
+                            
+                            <dxi-item dataField="sumAssured">
+                                <div *dxTemplate>
+                                    <dx-text-box [value]="claimPartner.sumAssured | currency: claimPartner.currency" [disabled]="true"></dx-text-box>
+                                </div>
+                            </dxi-item>
+                        </dxi-item>
+
+                        <dxi-item itemType="group" caption="{{'claimInformation.form.subTittle2' | translate}}"
+                        colCount="2">
+                            <dxi-item dataField="eventDate" editorType="dxDateBox" [editorOptions]="{ width: '100%', displayFormat: 'd MMMM yyyy', disabled: !isFormEditable }">
+                                <dxi-validation-rule type="required" message="Event date is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="claimTypeName" [editorOptions]="{ disabled: true }"></dxi-item>
+                            
+                            
+                            <dxi-item dataField="claimAmount" *ngIf="isInputAmount">
+                                <dxo-label text="{{'claimInformation.form.claimAmount' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Claim amount is required"></dxi-validation-rule>
+                                
+                                <div *dxTemplate>
+                                    <dx-number-box
+                                        #claimAmount
+                                        format="#,###.##"
+                                        class="number-right"
+                                        [value]="claimPartner.claimAmount"
+                                        [disabled]="!isFormEditable"
+                                        (onValueChanged)="claimAmountChanged($event)"
+                                    ></dx-number-box>  
+                                </div>
+                            
+                            </dxi-item>
+                            <dxi-item dataField="illnessCode" editorType="dxSelectBox" [editorOptions]="{ items: illness['data'], displayExpr: 'name', valueExpr: 'illnessCode', onValueChanged: onIllnessChanged, disabled: !isFormEditable}">
+                                <dxo-label text="{{'claimInformation.form.illnessCode' | translate}}"></dxo-label>
+                            </dxi-item>
+                            <dxi-item itemType="empty" *ngIf="isOtherIllness"></dxi-item>
+                            <dxi-item dataField="illnessText" *ngIf="isOtherIllness" [editorOptions]="{ disabled: true}">
+                                <dxi-validation-rule type="required" message="illness is required"></dxi-validation-rule>
+                            </dxi-item>
+                        </dxi-item>
+
+                        <dxi-item itemType="group" caption="{{'claimInformation.form.subTittle3' | translate}}"
+                        colCount="2">
+                            <dxi-item dataField="isInsured">
+                                <dxo-label text="{{'claimInformation.form.isInsured' | translate}}"></dxo-label>
+                                <div *dxTemplate>
+                                    <dx-radio-group
+                                        [items]="[
+                                            'Yes',
+                                            'No'
+                                        ]"
+                                        [value]="isInsured"
+                                        layout="horizontal"
+                                        (onValueChanged)="onIsInsuredChanged($event)"
+                                        [disabled]="!isFormEditable">
+                                    </dx-radio-group>
+                                </div>
+                                <dxi-validation-rule type="required" message="Claim type is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item itemType="empty"></dxi-item>
+                            <dxi-item dataField="claimantName" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInformation.form.claimantName' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Claimant name is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="claimantPhoneNo" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInformation.form.claimantPhoneNo' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Phone No is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="claimantRelationInsuredCode" editorType="dxSelectBox" [editorOptions]="{ items: relations['data'], displayExpr: 'relationInsuredName', valueExpr: 'relationInsuredCode', disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInformation.form.claimantRelationInsuredCode' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Relationship is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="claimantEmailAddress" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInformation.form.claimantEmailAddress' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Email address is required"></dxi-validation-rule>
+                            </dxi-item>
+                        </dxi-item>
+
+                        <dxi-item itemType="group" caption="{{'claimInquiry.form.subTittle' | translate}}" colCount="2" *ngIf="isNeedBenefiecyInfo">
+                            <dxi-item dataField="beneficiery" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.beneficiery' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Beneficiary is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="beneficieryKtpNo" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.beneficieryKtpNo' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Beneficiary KTP is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="relationInsuredCode" editorType="dxSelectBox" [editorOptions]="{ items: relations['data'], displayExpr: 'relationInsuredName', valueExpr: 'relationInsuredCode', disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.relationInsuredCode' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Relationship is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="partnerFamilyCardNo" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.partnerFamilyCardNo' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Beneficiary family card is required"></dxi-validation-rule>
+                            </dxi-item>
+                        </dxi-item>
+
+                        <dxi-item itemType="group" caption="{{'claimInquiry.form.subTittle2' | translate}}" colCount="2" *ngIf="isNeedBankInsured">
+                            <dxi-item dataField="partnerAccountNo" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.partnerAccountNo' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Account No is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="partnerCurrency" editorType="dxSelectBox" [editorOptions]="{ items: currency['data'], displayExpr: 'description', valueExpr: 'currencyCode', disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.partnerCurrency' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Currency is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="partnerBank" editorType="dxSelectBox" [editorOptions]="{ items: banks['data'], displayExpr: 'bankName', valueExpr: 'bankCode', onValueChanged: onBankChanged, disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.partnerBank' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Bank is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="partnerAccountName" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text="{{'claimInquiry.form.partnerAccountName' | translate}}"></dxo-label>
+                                <dxi-validation-rule type="required" message="Account name is required"></dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="partnerBankName" *ngIf="isOtherBank" [editorOptions]="{ disabled: !isFormEditable }">
+                                <dxo-label text=""></dxo-label>
+                                <dxi-validation-rule type="required" message="Bank name is required"></dxi-validation-rule>
+                            </dxi-item>
+                        </dxi-item>
+                    </dx-form>
+                </div>
+
+                <div class="my-16" class="button-wrap" style="margin-top: 16px">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                        (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+            <div class="tabpanel-item p-16" *ngIf="company.ID===2">
+                <div class="my-16" class="button-wrap" style="margin-bottom: 16px;">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                        (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+
+                <file-document
+                    [data]="claimDoc"
+                    [editable]="isDocumentEditable"
+                    type="{{'btnView' | translate}}"
+                    [selectedTransactionId]="selectedTransactionId"
+                ></file-document>
+
+                <div class="my-16" class="button-wrap" style="margin-top: 16px;">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                        (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+            <div class="tabpanel-item p-16" *ngIf="company.ID===3">
+                <div class="my-16" class="button-wrap" style="margin-bottom: 16px;">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                        (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+
+                <div class="widget-container">
+                    <dx-data-grid
+                        id="gridContainer"
+                        [dataSource]="processHistory"
+                        [showBorders]="true">
+                        <dxi-column dataField="processDate" caption="{{'claimInquiry.form.processDate' | translate}}" cellTemplate="dateTemplate"></dxi-column>
+                        <dxi-column dataField="userPartnerName" caption="{{'claimInquiry.form.userPartnerName' | translate}}"></dxi-column>
+                        <dxi-column dataField="actionDescription" caption="{{'claimInquiry.form.actionDescription' | translate}}"></dxi-column>
+                        <dxi-column dataField="remarks" caption="{{'claimInquiry.form.remarks' | translate}}" cellTemplate="remarkTemplate"></dxi-column>
+
+                        <div *dxTemplate="let d of 'remarkTemplate'">
+                            <div style="white-space: pre-wrap;">{{d.value}}</div>
+                        </div>
+
+                        <div *dxTemplate="let d of 'dateTemplate'">
+                            <div>{{formatDate(d.value)}}</div>
+                        </div>
+
+                    </dx-data-grid>
+                </div>
+
+                <div class="my-16" class="button-wrap" style="margin-top: 16px;">
+                    <dx-button
+                        text="{{'claimInformation.form.btnBack' | translate}}"
+                        type="success"
+                        (onClick)="onBack()">
+                    </dx-button>
+                    <div *ngIf="isFormEditable">
+                        <dx-button
+                        (onClick)="onSave()"
+                            text="{{'claimInformation.form.btnSave' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onSubmit()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnSubmit' | translate}}"
+                            type="success">
+                        </dx-button>
+                        <dx-button
+                        (onClick)="onCancel()"
+                            style="margin-left: 10px"
+                            text="{{'claimInformation.form.btnCancel' | translate}}"
+                            type="danger">
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dx-tab-panel>
+</div>
+
+<dx-popup
+[width]="660"
+[height]="540"
+[showTitle]="true"
+title="View Uploaded File"
+[dragEnabled]="false"
+[closeOnOutsideClick]="true"
+[(visible)]="isPopupVisible">
+<div *dxTemplate="let data of 'content'">
+    <div class="detail-wrapper">
+        <span>Filename : </span>
+        <!-- <span>Filename : {{documentFiles[data.key].fileName}}</span>
+        <span>Upload by : {{documentFiles[data.key].fileName}}</span>
+        <span>Upload date : {{documentFiles[data.key].fileName}}</span> -->
+    </div>
+    <hr>
+    <dx-gallery #gallery
+        id="gallery"
+        [dataSource]="fileUploadDataSource"
+        [slideshowDelay]="0"
+        height="auto"
+        [loop]="false"
+        [showNavButtons]="true"
+        [showIndicator]="false"
+    ></dx-gallery>
+</div>
+</dx-popup>

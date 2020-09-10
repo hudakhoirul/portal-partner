@@ -1,0 +1,66 @@
+#registration-claim {
+    width: 100%;
+
+    .rect{
+        border: solid 0.5px #ddd;
+        padding: 0px 10px 0px 10px;
+
+        .title {
+            align-self: center;
+            font-size: 16px;
+        }
+    }
+
+    .breadcumb {
+        margin-top: 16px;
+    }
+
+    .widget-container {
+        border: solid 0.5px #ddd;
+        padding: 10px;
+    }
+
+    .btn-upload /deep/ .dx-fileuploader-wrapper {
+        padding: 0px;
+        margin: 0px;
+    }
+
+}
+
+// start custom styles toast
+
+::ng-deep #toast {
+    padding: 10px;
+}
+::ng-deep #toast ul {
+    text-align: center;
+    list-style-type: none;
+    margin: 20px 0;
+}
+::ng-deep #toast ul li {
+    display: inline-block;
+    width: 160px;
+    margin: 10px;
+}
+::ng-deep #toast ul li img {
+    width: 100px;
+}
+::ng-deep .dx-toast-content {
+    min-width: 300px;
+    max-width: 400px;
+}
+
+// end custom style toast
+
+::ng-deep .dx-datagrid-rowsview .dx-row > .dx-master-detail-cell {
+    padding: 5px;
+}
+
+.detail-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+::ng-deep .number-right input {
+    text-align: right;
+  }

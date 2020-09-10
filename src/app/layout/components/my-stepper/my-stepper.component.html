@@ -1,0 +1,9 @@
+<div class="step-wrapper">
+  <div *ngFor="let data of stepdata.data; let i = index" class="step-group" [ngClass]="getStepGroupClass(i)">
+    <div class="step-item" [ngClass]="getStepItemClass(i)">
+      <p class="item-title">{{data}}</p>
+    </div>
+    <div class="arrow-right" [ngClass]="getArrorRightClass(i)"></div>
+    <div class="arrow-right-line" *ngIf="i!==stepdata.data.length-1"></div>
+  </div>
+</div>

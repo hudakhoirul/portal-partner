@@ -1,0 +1,112 @@
+<div class="widget-container">
+
+    <dx-button
+        *ngIf="isMultiSelected"
+        class="mb-16"
+        text="Delete"
+        type="danger"
+        (onClick)="deleteMultipleFile()">
+    </dx-button>
+
+    <dx-data-grid id="gridContainer"
+        #gridContainer
+        [dataSource]="data"
+        [masterDetail]="{ enabled: true, template: 'detail' }"
+        keyExpr="transactionDocumentId"
+        [showBorders]="true"
+        (onRowExpanded)="claimDocChanged($event)"
+        (onContentReady)="contentReady($event)"
+        (onSelectionChanged)="selectionChanged($event)">
+
+        <dxi-column dataField="description" alignment="left" caption="{{'register.claimInformation.description' | translate}}">
+        </dxi-column>
+        <dxi-column dataField="condition" width="120" caption="{{'register.claimInformation.condition' | translate}}" cellTemplate="conditionTemplate"></dxi-column>
+        <dxi-column dataField="jumlahFile" width="150" caption="{{'register.claimInformation.jumlahFile' | translate}}"></dxi-column>
+        <dxi-column cellTemplate="uploadTemplate" [width]="155" *ngIf="editable || type==='new'">
+            <dxo-label name="Upload"></dxo-label>
+        </dxi-column>
+
+        <div *dxTemplate="let data of 'conditionTemplate'" style="text-align: center;">
+            {{ data.data.condition ? 'Mandatory' : 'Optional' }}
+        </div>
+
+        <div *dxTemplate="let data of 'uploadTemplate'" style="text-align: center;">
+            <span style="font-size: 9px">File pdf/image only</span>
+            <file-pond #myPond 
+                *ngIf="editable || type==='new'"
+                [options]="getPondOptions(data)" 
+                [files]="pondFiles"
+                (onaddfile)="onFileChanged($event, data)">
+            </file-pond>
+        </div>
+
+        <div *dxTemplate="let detailDoc of 'detail'">
+            <dx-data-grid 
+                #claimDocGrid
+                [dataSource]="documentFiles[detailDoc.data.transactionDocumentId]"
+                [showBorders]="true"
+                [columnAutoWidth]="true"
+                (onContentReady)="claimDocReady($event)"
+                (onSelectionChanged)="selectionChangedHandler($event, detailDoc)">
+
+                <dxo-selection
+                    selectAllMode="page"
+                    showCheckBoxesMode="always"
+                    mode="multiple"
+                    *ngIf="editable"
+                ></dxo-selection>
+
+                <dxi-column dataField="transactionDocumentId" caption=" " [width]="editable ? 200 : 100" cellTemplate="actionTemplate"></dxi-column>
+                <dxi-column [dataField]="type === 'new' ? 'fileName' : 'documentName'" caption="{{'register.claimInformation.documentName' | translate}}"></dxi-column>
+                <dxi-column dataField="uploadBy" [width]="100" caption="{{'register.claimInformation.uploadBy' | translate}}"></dxi-column>
+                <dxi-column dataField="uploadDate" [width]="230" caption="{{'register.claimInformation.uploadDate' | translate}}" cellTemplate="dateTemplate"></dxi-column>
+
+
+                <div *dxTemplate="let d of 'dateTemplate'">
+                    <div>{{formatDate(d.value)}}</div>
+                </div>
+
+                <div *dxTemplate="let docFile of 'actionTemplate'" style="text-align: center;">
+                    <dx-button
+                        text="{{'btnView' | translate}}"
+                        type="success"
+                        (onClick)="viewUploadedFile(docFile, detailDoc)">
+                    </dx-button>
+                    <dx-button
+                        style="margin-left: 10px"
+                        text="{{'btnDelete' | translate}}"
+                        type="danger"
+                        (onClick)="onDeleteFile(docFile)"
+                        *ngIf="editable"
+                        [disabled]="isMultiSelected">
+                    </dx-button>
+                </div>
+            </dx-data-grid>      
+        </div>
+    </dx-data-grid>
+</div>
+
+<dx-popup
+    [width]="1200"
+    [height]="500"
+    [showTitle]="true"
+    title="View Uploaded File"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="true"
+    [(visible)]="isPopupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="detail-wrapper">
+        </div>
+        <hr>
+        <dx-gallery #gallery
+            id="gallery"
+            [dataSource]="fileUploadDataSource"
+            [slideshowDelay]="0"
+            height="auto"
+            [loop]="false"
+            [showNavButtons]="true"
+            [showIndicator]="false"
+            [selectedIndex]="0"
+        ></dx-gallery>
+    </div>
+</dx-popup>

@@ -1,0 +1,22 @@
+#registration-claim {
+    width: 100%;
+
+    .rect{
+        border: solid 0.5px #ddd;
+        padding: 0px 10px 0px 10px;
+
+        .title {
+            align-self: center;
+            font-size: 16px;
+        }
+    }
+
+    .breadcumb {
+        margin-top: 16px;
+    }
+
+    .widget-container {
+        border: solid 0.5px #ddd;
+        padding: 10px;
+    }
+}

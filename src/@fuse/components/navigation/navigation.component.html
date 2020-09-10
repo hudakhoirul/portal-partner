@@ -1,0 +1,92 @@
+<div class="nav" [ngClass]="{'horizontal':layout === 'horizontal', 'vertical':layout === 'vertical'}">
+
+    <!-- Vertical Navigation Layout -->
+    <!-- <ng-container *ngIf="layout === 'vertical'">
+
+        <ng-container *ngFor="let item of navigation">
+
+            <fuse-nav-vertical-group *ngIf="item.type=='group'" [item]="item"></fuse-nav-vertical-group>
+            <fuse-nav-vertical-collapsable *ngIf="item.type=='collapsable'"
+                                           [item]="item"></fuse-nav-vertical-collapsable>
+            <fuse-nav-vertical-item *ngIf="item.type=='item'" [item]="item"></fuse-nav-vertical-item>
+
+        </ng-container>
+
+    </ng-container> -->
+    <!-- / Vertical Navigation Layout -->
+
+    <!-- Horizontal Navigation Layout -->
+    <!-- <ng-container *ngIf="layout === 'horizontal'">
+
+        <ng-container *ngFor="let item of navigation">
+
+            <fuse-nav-horizontal-collapsable *ngIf="item.type=='group'" [item]="item"></fuse-nav-horizontal-collapsable>
+            <fuse-nav-horizontal-collapsable *ngIf="item.type=='collapsable'"
+                                             [item]="item"></fuse-nav-horizontal-collapsable>
+            <fuse-nav-horizontal-item *ngIf="item.type=='item'" [item]="item"></fuse-nav-horizontal-item>
+
+        </ng-container>
+
+    </ng-container> -->
+    <!-- / Horizontal Navigation Layout -->
+
+    <!-- <div class="form" style="margin: 0px 10px 10px 0px;">
+        <dx-tree-view
+            id="simple-treeview"
+            [items]="navigation"
+            dataStructure="plain"
+            parentIdExpr="categoryId"
+            keyExpr="ID"
+            displayExpr="name"
+            [width]="300"
+            (onItemClick)="selectItem($event)"
+            itemTemplate="itemTemplate"
+        >
+            <div *dxTemplate="let itemObj of 'itemTemplate'" class="dx-item-wrapper">
+                <mat-icon class="dx-link-icon">{{itemObj.icon}}</mat-icon>
+                <span class="dx-link-title">{{itemObj.name}}</span>
+            </div>
+        </dx-tree-view> -->
+        <!-- <div id="product-details" *ngIf="currentItem.price">
+            <img [src]="currentItem.icon" />
+            <div class="name">{{currentItem.name}}</div>
+            <div class="price">{{"$" + currentItem.price}}</div>
+        </div> -->
+    <!-- </div> -->
+
+    <div class="form" style="margin: 0px 10px 10px 0px;">
+        <dx-tree-view
+            id="simple-treeview"
+            [items]="navigation"
+            dataStructure="plain"
+            parentIdExpr="categoryId"
+            keyExpr="ID"
+            displayExpr="name"
+            [width]="300"
+            (onItemClick)="selectItem($event)"
+            itemTemplate="itemTemplate"
+        >
+            <a class="dx-item-wrapper" *dxTemplate="let itemObj of 'itemTemplate'"
+                [routerLink]="itemObj.url" [class.disabled]="true" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="'dx-link-active'"
+                target="_self" style="text-decoration: none">
+                <div style="display: flex;">
+                    <mat-icon class="dx-link-icon">{{itemObj.icon}}</mat-icon>
+                    <span class="dx-link-title">{{getTranslationText(itemObj.name)}}</span>
+                </div>
+                <span *ngIf="checkPath(itemObj.url)" class="badge">
+                    {{getNumber(itemObj.claimStatusCode)}}
+                </span>
+            </a>
+            <!-- <span class="dx-item-wrapper" *dxTemplate="let itemObj of 'itemTemplate'">
+                <mat-icon class="dx-link-icon">{{itemObj.icon}}</mat-icon>
+                <span class="dx-link-title">{{itemObj.name}}</span>
+            </span> -->
+        </dx-tree-view>
+        <!-- <div id="product-details" *ngIf="currentItem.price">
+            <img [src]="currentItem.icon" />
+            <div class="name">{{currentItem.name}}</div>
+            <div class="price">{{"$" + currentItem.price}}</div>
+        </div> -->
+    </div>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="page-layout carded fullwidth">
+    <div class="top-bg"></div>
+    <div class="center">
+        <div class="header" fxlayout="column" fxlayout.gt-sm="row" fxlayoutalign="center center" fxlayoutalign.gt-sm="space-between center">
+            <div class="logo mb-24 mb-md-0" fxlayout="row" fxlayoutalign="start center">
+                <mat-icon class="logo-icon s-32 mr-16 mat-icon material-icons ng-trigger ng-trigger-animate mat-icon-no-color" role="img" aria-hidden="true">
+                    access_time
+                </mat-icon>
+                <span class="logo-text h1 ng-trigger ng-trigger-animate"> {{title}} </span>
+            </div>
+        </div>
+        <div class="content-card">
+            <list-claim
+                [dataSource]="dataSource.data"
+                [column]="column"
+                (selected)="goToView($event)"
+                type="outstanding"
+                [status]="status"
+            ></list-claim>
+        </div>
+
+    </div>
+</div>

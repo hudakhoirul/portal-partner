@@ -1,0 +1,57 @@
+<dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    [allowColumnReordering]="true"
+    [rowAlternationEnabled]="true"
+    columnWidth="auto"
+    style="padding: 10px; background-color: white;"
+    (onContentReady)="onDataReady($event)"
+    (onRowPrepared)="onRowPrepared($event)">
+
+    <dxi-column dataField="action" cellTemplate="actionTemplate" caption="{{'listClaim.Action' | translate}}" [width]="65"></dxi-column>
+    <dxi-column dataField="claimRegNo" caption="{{'listClaim.claimRegNo' | translate}}"></dxi-column>
+    <dxi-column dataField="participantNo" caption="{{'listClaim.participantNo' | translate}}"></dxi-column>
+    <dxi-column dataField="participant" caption="{{'listClaim.participant' | translate}}"></dxi-column>
+    <dxi-column dataField="idMemberPartner" caption="{{'listClaim.idMemberPartner' | translate}}"></dxi-column>
+    <dxi-column dataField="eventDate" caption="{{'listClaim.eventDate' | translate}}"  cellTemplate="dateTemplate"></dxi-column>
+    <dxi-column dataField="claimTypeName" caption="{{'listClaim.claimTypeName' | translate}}"></dxi-column>
+    <dxi-column dataField="currency" caption="{{'listClaim.currency' | translate}}"></dxi-column>
+    <dxi-column dataField="claimAmount" caption="{{'listClaim.claimAmount' | translate}}" cellTemplate="currencyTemplate"></dxi-column>
+    <dxi-column dataField="idUserPartner" caption="{{'listClaim.idUserPartner' | translate}}"></dxi-column>
+    <dxi-column dataField="createdDate" caption="{{'listClaim.createdDate' | translate}}" cellTemplate="dateTemplate"></dxi-column>
+    <dxi-column dataField="claimStatusName" caption="{{'listClaim.claimStatusName' | translate}}"></dxi-column>
+    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+    <div *dxTemplate="let data of 'actionTemplate'" style="text-align: center;">
+        <span class="btn-select" (click)="onSelected(data)">{{getButtonText()}}</span>
+    </div>
+
+    <div *dxTemplate="let d of 'dateTemplate'">
+        <div>{{formatDate(d.value)}}</div>
+    </div>
+    
+    <div *dxTemplate="let d of 'currencyTemplate'">
+        <div style="text-align: right;">{{formatCurrency(d.value) | currency:' '}}</div>
+    </div>
+
+    <!-- <div *dxTemplate="let d of 'currencyTemplate'">
+        <div>{{d.value | currency:' '}}</div>
+    </div> -->
+
+    <dxo-search-panel 
+        [visible]="true" 
+        [width]="240" 
+        placeholder="{{'listClaim.Search' | translate}}"></dxo-search-panel>
+
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-paging [pageSize]="5"></dxo-paging>
+
+    <dxo-pager
+        infoText="{{'listClaim.infoPage' | translate}}"
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true">
+    </dxo-pager>
+
+</dx-data-grid>
